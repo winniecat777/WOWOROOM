@@ -9,6 +9,8 @@ init();
 function getProductList(){
 	axios.get(`url/products`)
 	.then((res) => {
-			console.log(res); 
+		console.log(res);
+		productData = response.data.products;
+		// console.log(productData);	 
 	})
 }
