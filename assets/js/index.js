@@ -8,10 +8,10 @@ function init(){
 init();
 
 function getProductList(){
-	axios.get(`url/products`)
+	axios.get(`${url}/products`)
 	.then((res) => {
 		console.log(res);
-		productData = response.data.products;
+		productData = res.data.products;
 		// console.log(productData);
 		renderProductList();	 
 	})
