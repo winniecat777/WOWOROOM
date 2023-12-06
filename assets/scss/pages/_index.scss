@@ -963,3 +963,8 @@ body {
 .quantity-num {
   padding: 12px;
 }
+
+.orderInfo-btn.disabled {
+  cursor: not-allowed;
+  background-color: lightgray;
+}
