@@ -19,11 +19,11 @@ function renderC3_lv2() {
         }
       })
     });
-    console.log(obj);
+    // console.log(obj);
     
     // 拉出資料關聯
     let originAry = Object.keys(obj);
-    console.log(originAry);
+    // console.log(originAry);
     // 透過 originAry，整理成 C3 格式
     let rankSortAry = [];
     
@@ -33,7 +33,7 @@ function renderC3_lv2() {
       ary.push(obj[item]);
       rankSortAry.push(ary);
     });
-    console.log(rankSortAry);
+    // console.log(rankSortAry);
 
     rankSortAry.sort((a, b) => {
       return b[1] - a[1];
@@ -49,7 +49,6 @@ function renderC3_lv2() {
       })
       rankSortAry.splice(3, rankSortAry.length - 1);
       rankSortAry.push(['其他', otherTotal]);
-      
     }
     // 超過三筆後將第四名之後的價格加總起來放在 otherTotal
     c3.generate({
@@ -73,7 +72,7 @@ function getOrderList(){
     })
     .then((res) => {
       orderData = res.data.orders;
-      console.log(orderData);
+    //   console.log(orderData);
       // 訂單字串
       let str = '';
       orderData.forEach((item) => {
@@ -125,14 +124,11 @@ function getOrderList(){
     let id = e.target.getAttribute("data-id");
     if (targetClass == "delSingleOrder-Btn js-orderDelete" ){
       deleteOrderItem(id);
-      alert("你點擊到刪除按鈕！");
       return;
     }
     if (targetClass == "orderStatus"){
       let status = e.target.getAttribute("data-status");
-      
-      changeOrderStatus(status,id)
-      // alert("你點擊到訂單狀態！");
+      changeOrderStatus(status,id);
       return;
     }
   })
@@ -169,7 +165,10 @@ function getOrderList(){
       }
     })
       .then((res) => {
-        alert("刪除該筆訂單成功");
+        Swal.fire({
+			title: "已刪除該筆訂單",
+			icon: "success",
+		});
         getOrderList();
       }) 
   } 
@@ -183,7 +182,10 @@ function getOrderList(){
       }
     })
       .then((res) => {
-        alert("刪除全部訂單成功");
+        Swal.fire({
+			title: "已刪除全部訂單",
+			icon: "success",
+		});
         getOrderList();
       })
   })

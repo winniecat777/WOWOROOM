@@ -127,7 +127,10 @@ cartList.addEventListener('click',(e) => {
 	}
 	axios.delete(`${url}/carts/${cardId}`)
 	.then((res) => {
-		alert("刪除單筆購物車成功");
+		Swal.fire({
+			title: "該品項已刪除",
+			icon: "success",
+		});
 		getCartList();
 	})
 })
@@ -136,7 +139,10 @@ discardAllBtn.addEventListener("click",(e) => {
 	e.preventDefault();
 	axios.delete(`${url}/carts`)
 	.then((res) => {
-		alert("刪除全部購物車成功！");
+		Swal.fire({
+			title: "已清空購物車",
+			icon: "success",
+		});
     getCartList();
 	})
 	.catch((error) => {
@@ -166,12 +172,12 @@ orderInfoBtn.addEventListener("click",(e) => {
 				message: "必填"
 			},
 		},
-		手機: {
+		電話: {
 			presence: {
 				message: "必填"
 			},
 			format: {
-				pavalidatePhonetern: validatePhone,
+				pattern: validatePhone,
 				message: "格式不符"
 			},
 		},
@@ -194,10 +200,11 @@ orderInfoBtn.addEventListener("click",(e) => {
 	const form = document.querySelector(".orderInfo-form");
 	const orderInfoBtn = document.querySelector(".orderInfo-btn");
 	inputs.forEach((item) => {
-		item.addEventListener("change", function () {
+		item.addEventListener("blur", function () {
 			item.nextElementSibling.textContent = '';
 			let errors = validate(form, constraints) || '';
-			if (errors) {
+			console.log(errors);
+			if (errors) {				
 				Object.keys(errors).forEach(function (keys) {
 					document.querySelector(`[data-message="${keys}"]`).textContent = errors[keys];
 				});
@@ -233,14 +240,10 @@ orderInfoBtn.addEventListener("click",(e) => {
     });
 		getCartList();	
 		form.reset();
-		// // 訂單建立成功後，需把 input 資料清空，恢復初始值
-		// document.querySelector("#customerName").value="";
-		// document.querySelector("#customerPhone").value="";
-		// document.querySelector("#customerEmail").value="";
-		// document.querySelector("#customerAddress").value="";
-		// document.querySelector("#tradeWay").value="ATM";
-    
   })
+	.catch((error) => {
+		console.log(error.res.data.message.join(' '));
+	})
 })
 
 // const customerEmail = document.querySelector("#customerEmail");
