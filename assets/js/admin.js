@@ -27,7 +27,7 @@ function renderC3_lv2() {
     // 透過 originAry，整理成 C3 格式
     let rankSortAry = [];
     
-    originAry.forEach(function (item) {
+    originAry.forEach((item) =>  {
       let ary = [];
       ary.push(item);
       ary.push(obj[item]);
@@ -35,14 +35,14 @@ function renderC3_lv2() {
     });
     console.log(rankSortAry);
 
-    rankSortAry.sort(function (a, b) {
+    rankSortAry.sort((a, b) => {
       return b[1] - a[1];
     })
     
     // 如果筆數超過 4 筆以上，就統整為其它
     if (rankSortAry.length > 3) {
       let otherTotal = 0;
-      rankSortAry.forEach(function (item, index) {
+      rankSortAry.forEach((item, index) => {
         if (index > 2) {
           otherTotal += rankSortAry[index][1];
         }
@@ -71,19 +71,19 @@ function getOrderList(){
         'Authorization':token,
       }
     })
-    .then(function(response){
-      orderData = response.data.orders;
+    .then((res) => {
+      orderData = res.data.orders;
       console.log(orderData);
       // 訂單字串
       let str = '';
-      orderData.forEach(function(item){
+      orderData.forEach((item) => {
         // 組時間字串
         const timeStamp = new Date(item.createdAt*1000); // 需 *1000 轉成毫秒
         const orderTime = `${timeStamp.getFullYear()}/${timeStamp.getMonth()+1}/${timeStamp.getDate()}`;
         
         // 組產品字串
         let productStr = "";
-        item.products.forEach(function(productItem){
+        item.products.forEach((productItem) => {
           productStr += `<p>${productItem.title}x${productItem.quantity}</p>`
         })
       // 判斷訂單處理狀態
